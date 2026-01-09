@@ -54,7 +54,8 @@ export default defineConfig({
 		inferGithubPagesSiteBase()?.site ??
 		"https://fuwari.vercel.app/",
 	base: normalizeBase(
-		process.env.ASTRO_BASE ?? inferGithubPagesSiteBase()?.base ?? "/",
+		// process.env.ASTRO_BASE ?? inferGithubPagesSiteBase()?.base ?? "/",
+		process.env.ASTRO_BASE ?? "/jly-blog/",
 	),
 	trailingSlash: "always",
 	integrations: [
