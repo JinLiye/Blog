@@ -31,10 +31,31 @@ function normalizeBase(base) {
 	return withoutTrailingSlashes === "" ? "/" : withoutTrailingSlashes;
 }
 
+function inferGithubPagesSiteBase() {
+	const githubOwner = process.env.GITHUB_REPOSITORY_OWNER;
+	const githubRepo = process.env.GITHUB_REPOSITORY;
+	const isGithubActions = process.env.GITHUB_ACTIONS === "true";
+
+	if (!isGithubActions || !githubOwner || !githubRepo) return null;
+
+	const repoName = githubRepo.split("/")[1];
+	if (!repoName) return null;
+
+	return {
+		site: `https://${githubOwner}.github.io`,
+		base: repoName.endsWith(".github.io") ? "/" : `/${repoName}`,
+	};
+}
+
 // https://astro.build/config
 export default defineConfig({
-	site: process.env.ASTRO_SITE ?? "https://fuwari.vercel.app/",
-	base: normalizeBase(process.env.ASTRO_BASE ?? "/"),
+	site:
+		process.env.ASTRO_SITE ??
+		inferGithubPagesSiteBase()?.site ??
+		"https://fuwari.vercel.app/",
+	base: normalizeBase(
+		process.env.ASTRO_BASE ?? inferGithubPagesSiteBase()?.base ?? "/",
+	),
 	trailingSlash: "always",
 	integrations: [
 		tailwind({
