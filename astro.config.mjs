@@ -24,10 +24,17 @@ import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-copy-button.js";
 
+function normalizeBase(base) {
+	if (!base) return "/";
+	const trimmed = String(base).trim();
+	const withoutTrailingSlashes = trimmed.replace(/\/+$/, "");
+	return withoutTrailingSlashes === "" ? "/" : withoutTrailingSlashes;
+}
+
 // https://astro.build/config
 export default defineConfig({
-	site: "https://fuwari.vercel.app/",
-	base: "/",
+	site: process.env.ASTRO_SITE ?? "https://fuwari.vercel.app/",
+	base: normalizeBase(process.env.ASTRO_BASE ?? "/"),
 	trailingSlash: "always",
 	integrations: [
 		tailwind({
