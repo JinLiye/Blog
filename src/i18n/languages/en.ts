@@ -3,8 +3,10 @@ import type { Translation } from "../translation";
 
 export const en: Translation = {
 	[Key.home]: "Home",
+	[Key.projects]: "Projects",
 	[Key.about]: "About",
 	[Key.archive]: "Archive",
+	[Key.life]: "Life",
 	[Key.search]: "Search",
 
 	[Key.tags]: "Tags",

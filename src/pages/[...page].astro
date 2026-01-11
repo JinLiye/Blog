@@ -5,7 +5,6 @@ import PostPage from "../components/PostPage.astro";
 import { PAGE_SIZE } from "../constants/constants";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 import { getSortedPosts } from "../utils/content-utils";
-import demoAvatar from '../../assets/images/demo-avatar.png';
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const allBlogPosts = await getSortedPosts();

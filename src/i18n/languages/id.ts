@@ -3,8 +3,10 @@ import type { Translation } from "../translation";
 
 export const id: Translation = {
 	[Key.home]: "Beranda",
+	[Key.projects]: "Proyek",
 	[Key.about]: "Tentang",
 	[Key.archive]: "Arsip",
+	[Key.life]: "Kehidupan",
 	[Key.search]: "Cari",
 
 	[Key.tags]: "Tag",

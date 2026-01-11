@@ -3,8 +3,10 @@ import type { Translation } from "../translation";
 
 export const ko: Translation = {
 	[Key.home]: "홈",
+	[Key.projects]: "프로젝트",
 	[Key.about]: "소개",
 	[Key.archive]: "아카이브",
+	[Key.life]: "생활",
 	[Key.search]: "검색",
 
 	[Key.tags]: "태그",
