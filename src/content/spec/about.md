@@ -23,11 +23,11 @@ This blog mainly documents:
 - **Projects**: Project retrospectives, solution design breakdowns, and outcome records.
 - **Life**: Sports (marathon, swimming, freediving) and music (singing & guitar strumming).
 
-## Contact / 联系方式
+## Contact 
 
 - GitHub：<https://github.com/JinLiye>
 - Email：<mailto:m18912870836@163.com>
 
-## Resume / 简历
+<!-- ## Resume / 简历
 
-- PDF：public/resume.pdf`（当前为占位文件，请用你的简历替换 `public/resume.pdf`）
+- PDF：public/resume.pdf`（当前为占位文件，请用你的简历替换 `public/resume.pdf`） -->

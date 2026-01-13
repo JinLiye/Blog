@@ -5,6 +5,9 @@ description: ''
 image: './assets/project/PMS_project/cover.jpeg'
 tags: ['LLM','software design']
 category: 'Projects'
-draft: false 
+draft: false
 lang: ''
 ---
+## Info
+
+::github{repo="Event-AHU/Open_VLTrack"}
