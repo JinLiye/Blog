@@ -1,9 +1,33 @@
 # About
-This is the demo site for [Fuwari](https://github.com/saicaca/fuwari).
 
-::github{repo="saicaca/fuwari"}
+Graduate student @ School of Computer Science & Technology, Anhui University
+Research Focus: Machine Vision × Vision-Language Tracking
 
-> ### Sources of images used in this site
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
+Aspire to build robust APIs and reliable architectures, and turn cutting-edge tech into practical solutions. That’s where the real magic happens!
+
+## Projects 
+
+Recent Projects & Tasks in Progress:
+
+- Industrial Equipment **Predictive Maintenance System**
+
+- **Leakage Detection** for Laundry Pods
+
+- **Detection of Pedestrians Holding Handrails** While Climbing Stairs
+
+## This Site
+
+This blog mainly documents:
+
+- **Learning**: Notes on academic stuff, engineering practice insights, and lessons learned from debugging mishaps.
+- **Projects**: Project retrospectives, solution design breakdowns, and outcome records.
+- **Life**: Sports (marathon, swimming, freediving) and music (singing & guitar strumming).
+
+## Contact / 联系方式
+
+- GitHub：<https://github.com/JinLiye>
+- Email：<mailto:m18912870836@163.com>
+
+## Resume / 简历
+
+- PDF：public/resume.pdf`（当前为占位文件，请用你的简历替换 `public/resume.pdf`）
