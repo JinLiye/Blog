@@ -1,15 +1,48 @@
 ---
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
+import PostCard from "@components/PostCard.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getSortedPosts } from "@utils/content-utils";
+import { getPostUrlBySlug } from "@utils/url-utils";
+
+const CATEGORY = "Life";
+const posts = (await getSortedPosts()).filter(
+	(post) => (post.data.category ?? "").trim() === CATEGORY,
+);
+
+let delay = 0;
+const interval = 50;
 ---
 
 <MainGridLayout title={i18n(I18nKey.life)} description={i18n(I18nKey.life)}>
-	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative">
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
 		<div class="card-base z-10 px-9 py-6 relative w-full">
 			<h1 class="text-2xl font-bold text-90">{i18n(I18nKey.life)}</h1>
-			<p class="mt-2 text-75">Sports (marathon / swimming / freediving) and music (singing / guitar).</p>
+			<p class="mt-2 text-75">
+				{posts.length === 0
+					? "No posts yet. Add `category: Life` in a post frontmatter."
+					: `Total: ${posts.length}`}
+			</p>
 		</div>
 	</div>
-</MainGridLayout>
 
+	<div class="transition flex flex-col rounded-[var(--radius-large)] bg-[var(--card-bg)] py-1 md:py-0 md:bg-transparent md:gap-4 mb-4">
+		{posts.map((entry) => (
+			<PostCard
+				entry={entry}
+				title={entry.data.title}
+				tags={entry.data.tags}
+				category={entry.data.category}
+				published={entry.data.published}
+				updated={entry.data.updated}
+				url={getPostUrlBySlug(entry.slug)}
+				image={entry.data.image}
+				description={entry.data.description}
+				draft={entry.data.draft}
+				class:list="onload-animation"
+				style={`animation-delay: calc(var(--content-delay) + ${delay++ * interval}ms);`}
+			/>
+		))}
+	</div>
+</MainGridLayout>
