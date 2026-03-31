@@ -28,4 +28,107 @@ lang: ''
 ![alt text](image-1.png)
 
 
-## 什么是策略模式？一般用在什么场景？
+## 什么是责任链模式？一般用在什么场景？
+> 责任链模式是一种行为型设计模式，它定义了一个请求处理链，每个对象都有机会处理这个请求。如果一个对象不能处理这个请求，它会把请求传递给下一个对象。直到有一个对象处理了这个请求为止。
+典型场景：
+审批流程：比如请假申请，需要先由组长审批，再由经理审批，最后由总监审批
+```java
+// 抽象处理器
+abstract class Handler {
+    protected Handler next;
+
+    public Handler setNext(Handler next) {
+        this.next = next;
+        return next; // 返回next方便链式调用
+    }
+
+    public abstract void handle(int amount);
+}
+
+// 组长：500以内
+class LeaderHandler extends Handler {
+    public void handle(int amount) {
+        if (amount <= 500) {
+            System.out.println("组长审批通过：" + amount);
+        } else if (next != null) {
+            next.handle(amount);
+        }
+    }
+}
+
+// 经理：500-2000
+class ManagerHandler extends Handler {
+    public void handle(int amount) {
+        if (amount <= 2000) {
+            System.out.println("经理审批通过：" + amount);
+        } else if (next != null) {
+            next.handle(amount);
+        }
+    }
+}
+
+// 使用
+Handler chain = new LeaderHandler();
+chain.setNext(new ManagerHandler()).setNext(new DirectorHandler());
+chain.handle(1500); // 经理审批通过：1500
+
+```
+
+### 责任链的两种实现形式
+1. 独占处理（纯责任链）
+请求只能被链上的一个节点处理，处理完成后就结束。
+2. 层层过滤（不纯责任链）
+请求会经过链上的多个节点，每个节点都可以做点事情。比如Servelet的FilterChain。
+
+## 什么是模板方法模式？一般用在什么场景？
+> 模板方法模式是一种行为设计模式，核心思想是在一个抽象类中定义一个算法的骨架，而将一些步骤延迟到子类中。子类可以不改变算法的骨架即可重定义该算法的某些步骤。
+模板方法模式通常用于在算法的实现中，有一些步骤是通用的，而有一些步骤是可变的。
+
+```java
+// 抽象类
+abstract class DataProcessor {
+    // 模板方法，定死执行顺序
+    public final void process() {
+        readData();
+        processData();
+        writeData();
+    }
+
+    protected abstract void readData();    // 子类必须实现
+    protected abstract void processData(); // 子类必须实现
+
+    protected void writeData() {           // 默认实现，子类可覆盖
+        System.out.println("Writing data to output.");
+    }
+}
+
+// CSV 处理器
+class CSVDataProcessor extends DataProcessor {
+    @Override
+    protected void readData() {
+        System.out.println("Reading data from CSV file.");
+    }
+
+    @Override
+    protected void processData() {
+        System.out.println("Processing CSV data.");
+    }
+}
+
+// JSON 处理器
+class JSONDataProcessor extends DataProcessor {
+    @Override
+    protected void readData() {
+        System.out.println("Reading data from JSON file.");
+    }
+
+    @Override
+    protected void processData() {
+        System.out.println("Processing JSON data.");
+    }
+}
+
+
+## 什么是观察者模式？一般用在什么场景？
+
+```
