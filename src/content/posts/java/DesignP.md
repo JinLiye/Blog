@@ -284,3 +284,88 @@ public class ConfigurableFactory {
 工厂方法把创建逻辑分散到各个子类工厂中，新增产品只需要加一个新的子类工厂，符合开闭原则，但是代价是子类的数量会膨胀，每新增一个产品就要多一个工厂类，如果产品类型不多，工厂模式就够用了。
 
 ### 工厂模式和抽象工厂模式的区别是什么？
+
+这两个都是创建型设计模式，核心目的都是解耦对象创建（不用自己 new 对象，让工厂帮你创建），区别主要在于产品规模、工厂职责、使用场景。
+核心区别：
+- 工厂模式：生产单一产品（一个工厂只造一种东西）
+- 抽象工厂模式：生产产品族（一个工厂造一整套相关联的东西）
+
+1. 工厂模式 = 单品类工厂
+你只需要一种东西，比如：华为工厂 → 只造华为手机；苹果工厂 → 只造苹果手机。一个工厂，只干一件事。
+2. 抽象工厂模式 = 成套设备工厂你需要一整套配套的东西，比如：苹果工厂 → 造苹果手机 + 苹果耳机 + 苹果充电器；华为工厂 → 造华为手机 + 华为耳机 + 华为充电器。一个工厂，造一整套产品，且产品之间必须配套。
+
+### 单例模式有哪几种实现，如何保证线程安全？
+单例模式（Singleton）是创建型设计模式，核心目的是：保证一个类在整个程序中只有一个实例，并提供全局访问点。
+
+- 饿汉式单例
+在类加载时就创建好实例，线程安全。缺点是不管用不用都会占用内存。
+```java
+public class Singleton {
+    private static final Singleton instance = new Singleton();
+    private Singleton() {}
+    public static Singleton getInstance() {
+        return instance;
+    }
+}
+```
+- 懒汉式
+在第一次使用时才创建实例，线程不安全，需要加锁。
+```java
+public class Singleton {
+    private static Singleton instance;
+    private Singleton() {}
+    public static synchronized Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+```
+- 双重检查锁
+在懒汉式基础上加一层判断，减少锁的粒度，提高性能，线程安全。
+```java
+public class Singleton4 {
+    // volatile：禁止指令重排，保证多线程可见性
+    private static volatile Singleton4 instance;
+
+    private Singleton4() {}
+
+    public static Singleton4 getInstance() {
+        // 第一次检查：不加锁，提高效率
+        if (instance == null) {
+            // 加锁：保证只有一个线程创建实例
+            synchronized (Singleton4.class) {
+                // 第二次检查：防止多线程同时进入第一层判断
+                if (instance == null) {
+                    instance = new Singleton4();
+                }
+            }
+        }
+        return instance;
+    }
+}
+```
+- 静态内部类
+利用静态内部类实现懒加载，线程安全。
+```java
+public class Singleton {
+    private Singleton() {}
+    private static class SingletonHolder {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
+```
+- 枚举
+枚举类型是线程安全的，并且只会加载一次，实现简单。
+```java
+public enum Singleton {
+    INSTANCE;
+    public void doSomething() {
+        System.out.println("doSomething");
+    }
+}
+```
